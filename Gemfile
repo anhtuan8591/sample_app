@@ -26,6 +26,12 @@ gem "rb-readline", "~> 0.4.2"
 
 gem 'bootstrap-sass', '2.1'
 
+group :development do
+  gem 'annotate', '2.5.0'
+end
+
+gem 'bcrypt-ruby', '3.0.1'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
