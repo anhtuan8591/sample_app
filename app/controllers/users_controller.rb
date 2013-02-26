@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :signed_in_user, only: [:edit, :update, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show 
   	@user = User.find(params[:id])
+    @microposts = @user.microposts.all 
   end
 
   def create
@@ -42,17 +43,27 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id]).destroy
+    @user = User.find(params[:id])
+	  @user.destroy
     flash[:success] = "User destroyed"
-    redirect_to user_url
+    redirect_to root_path
   end
 
-   private
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
 
-    def signed_in_user
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
-    end
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
 
+  private
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
