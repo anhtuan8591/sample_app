@@ -11,7 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226022609) do
+ActiveRecord::Schema.define(:version => 20130228223526) do
+
+  create_table "asigned_projects", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "assigned_projects", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "man_days", :force => true do |t|
+    t.string   "plan_man_day"
+    t.string   "day_start"
+    t.string   "end_time"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "check"
+  end
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -21,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20130226022609) do
   end
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -33,14 +65,25 @@ ActiveRecord::Schema.define(:version => 20130226022609) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "schedules", :force => true do |t|
+    t.string   "year"
+    t.string   "month"
+    t.string   "week"
+    t.string   "status"
+    t.integer  "assigned_project_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.boolean  "tmp"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin"
+    t.boolean  "admin",           :default => false
   end
 
 end

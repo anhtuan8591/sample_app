@@ -1,31 +1,60 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 		<div class="navbar-inner">
 	        <div class="container">
-	          <%= link_to "sample app", '#', id: "logo" %>
+	          <%= link_to "Resource App", root_path, id: "logo" %>
 	          <nav>
 	            <ul class="nav pull-right">
 	              <li><%= link_to "Home",   root_path %></li>
-	              <li><%= link_to "Help",    help_path %></li>
 	              <% if signed_in? %>
-	              <li><%= link_to "Users", users_path %></li>
+	              <% if current_user.admin? %>
+	              	<li><%= link_to "Users", users_path %></li>
+	              <% end %>
 		            <li id="fat-menu" class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                Account <b class="caret"></b>
-		              </a>
-		              <ul class="dropdown-menu">
-		                <li><%= link_to "Profile", current_user %></li>
-		                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+		                <li><%= link_to "Profile", edit_user_path(current_user) %></li>
 		                <li class="divider"></li>
 		                <li>
 		                  <%= link_to "Sign out", signout_path, method: "delete" %>
 		                </li>
-		              </ul>
 		            </li>
 		          <% else %>
-		            <li><%= link_to "Sign in", signin_path %></li>
+		            <li id="login"><%= link_to "Sign in", '#' %></li>
 		          <% end %>  
 	            </ul>
 	          </nav>
 	        </div>
 	    </div>
+
+	   	<div class="container">	
+	        <div id="form_login">
+	           		<%= form_for(:session, url: sessions_path) do |f| %>
+
+					<%= f.label :email %>
+					<%= f.text_field :email %>
+
+					<%= f.label :password %>
+					<%= f.password_field :password %>
+
+					<%= f.submit "Sign In", class: "btn btn-large btn-primary" %> 
+					<% end %>
+					<p>New User? <%= link_to "Sign up now!", signup_path %></p>
+			</div>
+		</div>        
+
 </header>
+	           
+
+<script>
+$("#login").click(function () {
+	$("#form_login").slideToggle("slow");
+	$(".homepage").hide();
+});
+</script>
+<style type="text/css">
+#form_login{
+	width: 300px;
+	float:right;
+	margin-right: 20px;
+	background-color: #fff;
+	padding: 10px;
+}
+</style>

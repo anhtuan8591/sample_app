@@ -1,0 +1,33 @@
+<%= form_for(@man_day) do |f| %>
+  <% if @man_day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@man_day.errors.count, "error") %> prohibited this man_day from being saved:</h2>
+
+      <ul>
+      <% @man_day.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :plan_man_day %><br />
+    <%= f.text_field :plan_man_day %>
+  </div>
+  <div class="field">
+    <%= f.label :day_start %><br />
+    <%= f.text_field :day_start %>
+  </div>
+  <div class="field">
+    <%= f.label :day_end %><br />
+    <%= f.text_field :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :"Select Project" %><br />
+    <%= select_tag "man_day[project_id]", options_from_collection_for_select(@projects, "id", "name", @man_day_project_id)%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

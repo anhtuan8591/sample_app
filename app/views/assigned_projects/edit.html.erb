@@ -1,0 +1,31 @@
+<h1>Editing assigned_project</h1>
+
+<%= form_for(@assigned_project) do |f| %>
+  <% if @assigned_project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assigned_project.errors.count, "error") %> prohibited this assigned_project from being saved:</h2>
+
+      <ul>
+      <% @assigned_project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  	<%= f.label :"Select User" %><br />
+  	<%= select_tag "assigned_project[user_id]", options_from_collection_for_select(@users, "id", "name", @assigned_project.user_id)%>
+  </div>
+  <div class="field">
+  	<%= f.label :"Select Project" %><br />
+  	<%= select_tag "assigned_project[project_id]", options_from_collection_for_select(@projects, "id", "name", @assigned_project.project_id)%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div> 
+<% end %>
+
+
+<%= link_to 'Show', @assigned_project %> |
+<%= link_to 'Back', assigned_projects_path %>

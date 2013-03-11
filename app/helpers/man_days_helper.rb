@@ -1,0 +1,2 @@
+module ManDaysHelper
+end

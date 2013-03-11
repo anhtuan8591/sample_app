@@ -1,24 +1,65 @@
 <% provide(:title, @user.name )%>
 <div class="row">
-  <aside class="span4">
+  <aside class="span2">
     <section>
       <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
+        Hi,<%= @user.name %>
       </h1>
+      <div><%= link_to 'Email to this user', '#', id: "notify_friend_form" %></div>  
+      <div id="dialog" title="Send Email">
+        <%= form_tag(notify_friend_user_path(@user), :id => 'notify_friend_form') do %>
+        <div class="field">
+        <%= label_tag :name, 'Your name' %><br />
+        <%= text_field_tag :name %>
+        </div>
+        <div class="field">
+        <%= label_tag :email, "Your friend's email" %><br />
+        <%= text_field_tag :email %>
+        </div>
+        <div class="actions">
+        <%= submit_tag 'Send' %> or
+        <%= link_to 'Cancel', '#', :onclick => "$('#notify_friend_form').slideUp()" %>
+        </div>
+        <% end %>
+      </div>
+       
     </section>
-    <section>
-      <%= render 'shared/stats' %>
-    </section>
+    
   </aside>
-  <div class="span8">
-    <%= render 'follow_form' if signed_in? %>
-  	<% if @user.microposts.any? %>
-  	<h3>Microposts <%= @user.microposts.count %></h3>
-  	<ol class="microposts">
-        <%= render @microposts %>
-    </ol>
-  	
-  	<% end %>	
+  <div class="span10">
+      <div align="center">
+      <% if !@user_type %>
+        <%= link_to "Manage Plan", man_days_path, class: "btn" %>
+        <%= link_to "Manage Schedule", schedules_path, class: "btn" %>
+      <% else %>
+        <%= link_to "Assign User Into Project", assigned_projects_path, class: "btn" %>
+        <%= link_to "Manage User", users_path, class: "btn" %>
+        <%= link_to "Manage Plan Of User", man_days_path, class: "btn" %> <br /><br />
+        <%= link_to "Manage Schedule", schedules_path, class: "btn" %>
+        <%= link_to "Manage Project", projects_path, class: "btn" %>
+      </div>
+      <% end %>
   </div>
 </div>
+<script>
+ $( "#dialog" ).dialog({
+  autoOpen: false,
+  show: {
+  effect: "blind",
+  duration: 1000
+  },
+  hide: {
+  effect: "explode",
+  duration: 1000
+  }
+});
+$( "#notify_friend_form" ).click(function() {
+  $( "#dialog" ).dialog( "open" );
+});
+$( "#dialog" ).dialog({
+  autoOpen: false,
+  height: 320,
+  width: 450,
+  modal: true
+});
+</script>

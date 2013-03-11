@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Plan man day:</b>
+  <%= @man_day.plan_man_day %>
+</p>
+
+<p>
+  <b>Day start:</b>
+  <%= @man_day.day_start %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @man_day.end_time %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @man_day.user_id %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @man_day.project_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_man_day_path(@man_day) %> |
+<%= link_to 'Back', man_days_path %>

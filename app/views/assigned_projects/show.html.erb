@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <% @users.each do  |u| %>
+	  <% if u.id == @assigned_project.user_id %>
+	  	<%= u.name %>
+	  <% end %>
+  <% end %>
+</p>
+
+<p>
+  <b>Project:</b>
+  	<% @projects.each do |p| %>
+  		<% if p.id == @assigned_project.project_id %>
+  			<%= p.name %>
+  		<% end %>
+  	<% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_assigned_project_path(@assigned_project) %> |
+<%= link_to 'Back', assigned_projects_path %>

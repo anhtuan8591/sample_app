@@ -14,3 +14,12 @@
 //=require jquery_ujs
 //=require_tree 
 //=require bootstrap
+
+$(function() {
+  $("#man_day_day_start").datepicker();
+});
+$(function() {
+  $("#man_day_end_time").datepicker();
+});
+
+

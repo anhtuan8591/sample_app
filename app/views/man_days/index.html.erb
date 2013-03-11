@@ -1,0 +1,63 @@
+<h1>Listing Plan </h1>
+<%= link_to 'New Plan', new_man_day_path, class: "btn" %><br /><br />
+
+<table class="table table-hover">
+  <tr>
+    <th>Plan man day</th>
+    <th>Day start</th>
+    <th>Day end</th>
+    <th>Project</th>
+    <% if current_user.admin? %>
+        <th>User</th>
+    <% end %>    
+    <th>Check</th>
+    <th>Action</th>
+
+  </tr>
+
+<% @man_days.each do |man_day| %>
+  <% if man_day.user_id == current_user.id && !current_user.admin? %>  
+  <tr>
+    <td><%= link_to man_day.plan_man_day, edit_man_day_path(man_day) %></td>
+    <td><%= man_day.day_start %></td>
+    <td><%= man_day.end_time %></td>
+    <td><%= man_day.project_id %></td>
+    <td>
+        <% if !man_day.check? %>
+            <%= "No Check" %>
+        <% else %>
+            <%= "Checked" %>
+        <% end %>
+    </td>
+    <td><%= link_to 'Delete', man_day, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+
+  <% elsif current_user.admin? %>
+    <tr>
+    <td><%= link_to man_day.plan_man_day, edit_man_day_path(man_day) %></td>
+    <td><%= man_day.day_start %></td>
+    <td><%= man_day.end_time %></td>
+    <td><%= man_day.project_id %></td>
+    <td>
+        <% @users.each do |u| %>
+            <% if u.id == man_day.user_id %>
+                <%= u.name %>
+            <% end %>
+        <% end %>
+    </td>
+    <td>
+        <% if !man_day.check? %>
+            <%= "No Check" %>
+        <% else %>
+            <%= "Checked" %>
+        <% end %>
+    </td>
+    <td><%= link_to 'Delete', man_day, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+
+  <% end %>
+<% end %>
+</table>
+
+<br />
+

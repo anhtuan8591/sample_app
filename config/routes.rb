@@ -1,9 +1,23 @@
 SampleApp::Application.routes.draw do
   
+  resources :tests
+
+  resources :man_days
+
+  resources :schedules
+
+  resources :assigned_projects
+
+  resources :projects
+
   resources :users do
     member do
       get :following, :followers
     end
+    member do
+      post :notify_friend
+    end
+
   end
 
   resources :sessions, only: [:new, :create, :destroy]

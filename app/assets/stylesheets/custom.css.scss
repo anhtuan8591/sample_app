@@ -50,7 +50,9 @@ p {
   line-height: 1.7em;
 }
 
-
+a{
+  text-decoration:none;
+}
 /* header */
 
 #logo {
@@ -247,4 +249,18 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+#assigned_project_project_id,
+#assigned_project_user_id,
+#schedule_assigned_project_id,
+#man_day_project_id{
+  height: 40px;
+}
+#form_login{
+  display:none;
+}
+#form_login{
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }

@@ -1,0 +1,34 @@
+<h1>Listing Assigned Projects</h1>
+
+<%= link_to 'Create Assign', new_assigned_project_path, class: "btn" %><br /><br />
+
+<table class="table table-hover">
+    <th>Project</th>
+    <th>User</th>  
+  <% if @projects.each do |p| %>
+    <tr>
+      <td><%= link_to p.name, edit_project_path(p.id) %> </td>
+      <td>
+      <% @assigned_projects.each do |assigned_project| %>
+        <% if p.id == assigned_project.project_id %>
+          <% @users.each do |u| %>
+            <% if u.id == assigned_project.user_id %>
+              <%= u.name %>
+              <%= link_to 'Delete', assigned_project, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <br />
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+  
+<% end %>
+
+
+
+</table>
+
+<br />
+

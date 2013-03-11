@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 
   def show 
   	@user = User.find(params[:id])
+    if @user.admin? 
+      @user_type = true
+    else
+      @user_type = false
+    end  
     @microposts = @user.microposts.all 
   end
 
@@ -20,7 +25,7 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		#hander successful save
-  		flash[:success] = "Wellcome to Sample App"
+  		flash[:success] = "Wellcome to Resource App"
   		redirect_to @user
   	else
   		render 'new'
@@ -62,6 +67,13 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
+
+  def notify_friend
+    @user = User.find(params[:id])
+    Notifier.email_friend( params[:email]).deliver
+   redirect_to users_path, :notice => "Successfully sent a message to your friend"
+  end
+
 
   private
     def correct_user

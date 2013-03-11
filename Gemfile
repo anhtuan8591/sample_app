@@ -21,10 +21,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem "rb-readline", "~> 0.4.2"
-
 gem 'bootstrap-sass', '2.1'
+gem 'jquery_datepicker'
+
 
 group :development do
   gem 'annotate', '2.5.0'

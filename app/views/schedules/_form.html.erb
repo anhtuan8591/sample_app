@@ -1,0 +1,37 @@
+<%= form_for(@schedule) do |f| %>
+  <% if @schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+      <ul>
+      <% @schedule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </div>
+  <div class="field">
+    <%= f.label :month %><br />
+    <%= f.text_field :month %>
+  </div>
+  <div class="field">
+    <%= f.label :week %><br />
+    <%= f.text_field :week %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :"Select Project" %><br />
+    <%= select_tag "schedule[assigned_project_id]", options_from_collection_for_select(@projects, "id", "name", @schedule.assigned_project_id)%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
